@@ -51,25 +51,8 @@ body {
   margin: 0;
   font-family:'Roboto', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
 }
-img {
-  vertical-align: bottom; /* solution for space under image */
+
+.vertical {
+  writing-mode: vertical-lr;
 }
-label {
-  padding: 1px;
-}
-input[type="text"] {
-  height: 18px; /* chrome - firefox */
-  line-height: 18px; /* chrome - firefox */
-}
-select {
-  vertical-align: top;
-  height: 20px; /* chrome - firefox */
-  line-height: 20px; /* chrome - firefox */
-  border: 0; /* chrome - firefox */
-  padding: 0; /* chrome - firefox */
-}
-button {
-  background-color: gainsboro; /* chrome - firefox */
-  border-width: 1px; /* chrome - firefox */
-  padding: 1px 5px;
-}
+
