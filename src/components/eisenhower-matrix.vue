@@ -4,24 +4,27 @@
 
     <div>
       <div class="row g-2">
-        <div class="col-6 ">
+
+        <div class="col-6">
           <p class="text-center">urgent</p>
-          
           <div class="d-flex">
-              <p style="writing-mode: vertical-lr; ">Important</p>
+              <p style="text-align: center; writing-mode: vertical-rl; transform: rotate(180deg);">Important</p>
               <div class="p-3 border bg-success">Do First (now)</div>
           </div>
         </div>
-        <div class="col-6">
+
+        <div class="col-6 ">
           <p class="text-center">not urgent</p>
           <div class="p-3 border bg-warning">Do Later (schedule)</div>
         </div>
+
         <div class="col-6">
            <div class="d-flex">
-                <p style="writing-mode: vertical-lr">Not important</p>
+                <p style="text-align: center; writing-mode: vertical-rl; transform: rotate(180deg);">Not important</p>
           <div class="p-3 border bg-primary">Delegate (sombody)</div>
            </div>
         </div>
+
         <div class="col-6">
           <div class="p-3 border bg-danger">Don't Do (Eliminate)</div>
         </div>
