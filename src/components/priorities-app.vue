@@ -18,7 +18,6 @@
             type="checkbox"
             id="important"
             name="important"
-            value="important"
             v-model="importantPriority"
           />
           <label for="important">Important</label>
@@ -29,7 +28,6 @@
             type="checkbox"
             id="urgent"
             name="urgent"
-            value="urgent"
             v-model="urgentPriority"
           />
           <label for="urgent">Urgent</label>
@@ -56,14 +54,14 @@
             <td colspan="4">Highest Priority</td>
           </tr>
           <tr
-            v-for="(task, index) in tasks.filter((task) => task.importantPriority === true && task.urgentPriority == true)"
+            v-for="(task, index) in tasks.filter((task) => task.importantPriority === true && task.urgentPriority === true)"
             :key="index"
           >
             <td>
               <span :class=" {'finished' : task.status === 'done'} ">{{ task.name }}</span>
             </td>
             <td style="width: 120px">
-              <span  @click="changeStatus(index)" class="pointer">{{ firtCharUpper(task.status) }}</span>
+              <span  @click="changeStatus(task)" class="pointer">{{ firtCharUpper(task.status) }}</span>
             </td>
             <td class="text-center">
               <div @click="editTask(task)">
@@ -71,7 +69,7 @@
               </div>
             </td>
             <td class="text-center">
-              <div>
+              <div @click="deleteTask(task)">
                 <i class="fa-solid fa-trash"></i>
               </div>
             </td>
@@ -84,14 +82,14 @@
             :key="index"
           > -->
           <tr
-            v-for="(task, index) in tasks.filter((task) => task.importantPriority === true && task.urgentPriority == false)"
+            v-for="(task, index) in tasks.filter((task) => task.importantPriority === true && task.urgentPriority === false)"
             :key="index"
           >
             <td>
               <span :class=" {'finished' : task.status === 'done'} ">{{ task.name }}</span>
             </td>
             <td style="width: 120px">
-              <span @click="changeStatus(index)" class="pointer">{{ firtCharUpper(task.status) }}</span>
+              <span @click="changeStatus(task)" class="pointer">{{ firtCharUpper(task.status) }}</span>
             </td>
             <td class="text-center">
               <div @click="editTask(task)">
@@ -99,7 +97,7 @@
               </div>
             </td>
             <td class="text-center">
-              <div>
+              <div @click="deleteTask(task)">
                 <i class="fa-solid fa-trash"></i>
               </div>
             </td>
@@ -108,14 +106,14 @@
             <td colspan="4">Lowest Priority</td>
           </tr>
           <tr
-            v-for="(task, index) in tasks.filter((task) => task.importantPriority === false && task.urgentPriority == true)"
+            v-for="(task, index) in tasks.filter((task) => task.importantPriority === false && task.urgentPriority === true)"
             :key="index"
           >
             <td>
               <span :class=" {'finished' : task.status === 'done'} ">{{ task.name }}</span>
             </td>
             <td style="width: 120px">
-              <span @click="changeStatus(index)" class="pointer">{{ firtCharUpper(task.status) }}</span>
+              <span @click="changeStatus(task)" class="pointer">{{ firtCharUpper(task.status) }}</span>
             </td>
             <td class="text-center">
               <div @click="editTask(task)">
@@ -123,7 +121,7 @@
               </div>
             </td>
             <td class="text-center">
-              <div>
+              <div @click="deleteTask(task)">
                 <i class="fa-solid fa-trash"></i>
               </div>
             </td>
@@ -139,15 +137,15 @@
               <span :class=" {'finished' : task.status === 'done'} ">{{ task.name }}</span>
             </td>
             <td style="width: 120px">
-              <span @click="changeStatus(index)" class="pointer">{{ firtCharUpper(task.status) }}</span>
+              <span @click="changeStatus(task)" class="pointer">{{ firtCharUpper(task.status) }}</span>
             </td>
              <td class="text-center">
               <div @click="editTask(task)">
                 <i class="fa-solid fa-pen"></i>
               </div>
-            </td>
+            </td> 
             <td class="text-center">
-              <div>
+              <div @click="deleteTask(task)">
                 <i class="fa-solid fa-trash"></i>
               </div>
             </td>
@@ -219,8 +217,8 @@ export default {
         urgentPriority: this.urgentPriority,
       });
       /* console.log(this.taskInputValue);
-      console.log(this.importantPriority);
-      console.log(this.tasks); */
+      console.log(this.importantPriority);*/
+      console.log(this.task); 
       } else {
         this.tasks[this.taskEditedInputValue].name = this.taskInputValue;
         this.taskEditedInputValue = null;
@@ -235,11 +233,15 @@ export default {
       this.taskEditedInputValue = this.tasks.indexOf(task);
     },
 
-    changeStatus(index) {
-      let newIndex = this.allStatuses.indexOf(this.tasks[index].status);
+    changeStatus(task) {
+      let newIndex = this.allStatuses.indexOf(task.status);
       newIndex += 1;
       if(newIndex > 2) newIndex = 0;
-      this.tasks[index].status = this.allStatuses[newIndex];
+      task.status = this.allStatuses[newIndex];
+    },
+
+    deleteTask(task) {
+      this.tasks.splice(this.tasks.indexOf(task), 1);
     },
 
     firtCharUpper(string) {
